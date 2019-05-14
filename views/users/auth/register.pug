@@ -1,0 +1,55 @@
+extends ../../templates/default
+block content
+    section.page-header
+        .container
+            h1.heading Login Signup
+            ul.breadcrumb
+                li.breadcrumb-item
+                    a(href='#') Home
+                li.breadcrumb-item.active
+                    a(href='#') Login Signup
+    section.mt-100.mb-100
+        .container
+            .row.flex-row.justify-content-center
+                .col-lg-5
+                    h3 Create your account
+                    .card
+                        .card-body
+                            if message.length > 0
+                                div(class='alert alert-success' role='alert')=message
+                            form#signup-form(action='/register' method='post')
+                                .form-group
+                                    label Full Name
+                                    input#full-name.form-control(type='text' name='name')
+                                .form-group
+                                    label Email
+                                    input#email-id.form-control(type='text' name='email')
+                                .form-group
+                                    label Password
+                                    input#register-pass.form-control(type='password' name='password')
+                                .form-group
+                                    label.custom-control.custom-checkbox
+                                        input.custom-control-input(type='checkbox' name='agree' checked='')
+                                        span.custom-control-indicator
+                                        span.custom-control-description
+                                            | I accept the
+                                            a(href='#') terms &amp; conditions
+                                            | .
+                                button.btn.btn-primary(type='submit' name='submit') Create Account
+                .col-lg-5
+                    h3 Login to your account
+                    .card
+                        .card-body
+                            if authmessage.length > 0
+                                div(class='alert alert-danger' role='alert')=authmessage
+                            form(action='/login' method='post')
+                                .form-group
+                                    label Login Id
+                                    input#login-id-2.form-control(type='text' name='username')
+                                .form-group
+                                    label Password
+                                    input#login-pass-2.form-control(type='password' name='password')
+                                button.btn.btn-primary(type='submit' name='submit') Login
+                                br
+                                br
+                                a(href='#') I don&apos;t remember my Password

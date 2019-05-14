@@ -1,0 +1,75 @@
+extends ../templates/default
+block styles
+    link(href='//vjs.zencdn.net/6.7/video-js.min.css' rel='stylesheet')
+    link(href='css/videojs.record.min.css' type='text/css' rel='stylesheet')
+    script(src='//vjs.zencdn.net/6.9.0/video.min.js')
+    script(src='https://cdn.WebRTC-Experiment.com/RecordRTC.js')
+    script(src='//webrtc.github.io/adapter/adapter-latest.js')
+    script(src='js/videojs.record.min.js')
+    style.
+        #myVideo {
+            background-color: #9ab87a;
+        }
+block content
+    .container
+        video#myVideo.video-js.vjs-default-skin
+block scripts
+    script.
+        var options = {
+            controls: true,
+            width: 320,
+            height: 240,
+            plugins: {
+                record: {
+                    audio: true,
+                    video: true,
+                    maxLength: 10,
+                    debug: true
+                }
+            }
+        };
+        // use correct video mimetype for opera
+        if (!!window.opera || navigator.userAgent.indexOf('OPR/') !== -1) {
+            options.plugins.record.videoMimeType = 'video/webm\;codecs=vp8'; // or vp9
+        }
+
+        var player = videojs("myVideo", options, function () {
+            // print version information at startup
+            videojs.log('Using video.js', videojs.VERSION,
+                'with videojs-record', videojs.getPluginVersion('record'),
+                'and recordrtc', RecordRTC.version);
+        });
+
+        // error handling
+        player.on('deviceError', function () {
+            console.log('device error:', player.deviceErrorCode);
+        });
+
+        // user clicked the record button and started recording
+        player.on('startRecord', function () {
+            console.log('started recording!');
+        });
+
+        // user completed recording and stream is available
+        player.on('finishRecord', function () {
+            // the blob object contains the recorded data that
+            // can be downloaded by the user, stored on server etc.
+            console.log('finished recording: ', player.recordedData);
+            var data = player.recordedData;
+            if (player.recordedData.video) {
+                // for chrome (when recording audio+video)
+                data = player.recordedData.video;
+            }
+            var serverUrl = '/time';
+            var formData = new FormData();
+            formData.append('video', data);
+            console.log('uploading recording:', data.name);
+            axios.post(serverUrl, formData).then(function (response) {
+                console.log(response)
+            }).catch(function (reason) {
+                console.log(reason)
+            });
+        });
+
+
+

@@ -1,0 +1,70 @@
+header.header-2
+    // Header = Topbar + Navigation Bar
+    .topbar-wrapper
+        .container
+            // Dark Blue Topbar
+            .topbar
+                div
+                    | Call us : 69000850 (Paul Grimaldo)
+                    // Change Topbar Contact Number here
+                div
+                    ul.topbar-widgets
+                        // Topbar Widgets - Cart, Language Select & Login Signup
+                        li
+                            if !isAuth
+                                span(data-toggle='modal' data-target='#login-modal')
+                                    | Login/Sign up
+                            else
+                                span(data-toggle='modal' data-target='#login-modal')
+                                    a(href="/logout") Logout
+    nav.navbar.navbar-expand-lg
+        // Navigation Bar
+        .container
+            a.navbar-brand(href='/')
+                img(src='images/logo.png' alt='')
+                // Replace with your Logo
+            button.navbar-toggler.collapsed(type='button' data-toggle='collapse' data-target='#main-navigation' aria-expanded='false')
+                span.navbar-toggler-icon
+                    i.fa.fa-bars
+                    // Mobile Navigation Toggler Icon
+            #main-navigation.navbar-collapse.collapse
+                // Main Menu
+                ul.navbar-nav
+                    li.nav-item.has-menu
+                        a.nav-link(href='#') Pages
+                        .mega-menu
+                            // Mega Menu
+                            .container-fluid.nop
+                                .row
+                                    if isAuth
+                                        .col-lg-3
+                                            ul.menu-list
+                                                li.list-heading Analyze
+                                                li
+                                                    a(href='/videos') Upload content
+                                                li
+                                                    a(href='/time') Real Time analysis
+                                                li
+                                                    a(href='/data') See data
+                                        .col-lg-3
+                                            ul.menu-list
+                                                li.list-heading Security
+                                                li
+                                                    a(href='#') Restrictions
+                                    else
+                                        .col-lg-3
+                                            ul.menu-list
+                                                li.list-heading Project
+                                                li
+                                                    a(href='albums.html') More info
+                                                li
+                                                    a(href='album-single.html') How to use
+                                                li
+                                                    a(href='/register') Login
+                    li.nav-item.has-menu
+                        a.nav-link(href='#') Blog
+                        .sub-menu
+                            // Sub Menu
+                            ul.menu-list
+                                li
+                                    a(href='blog-grid-left-sidebar.html') Blog Grid Left Sidebar

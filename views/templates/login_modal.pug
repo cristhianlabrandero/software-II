@@ -1,0 +1,45 @@
+#login-modal.modal.fade(data-open-onload='false' tabindex='-1' role='dialog')
+    .modal-dialog.modal-lg(role='document')
+        .modal-content
+            button.close(type='button' data-dismiss='modal' aria-label='Close')
+                span(aria-hidden='true') &times;
+            .modal-body
+                .container-fluid
+                    .row
+                        .col-lg-6.bg-primary.nop
+                            img.img-fluid(src='images/login-modal.jpg' alt='')
+                            .p-40
+                                h2.bold.text-white Sign up to access your child dashboard.
+                                br
+                                a.btn.btn-light(href='/register') Register
+                        .col-lg-6.p-40.bg-white
+                            h4.heading Login to your account
+                            p Access your account, change settings or access your dashboard.
+                            form(id='login-form' action='/login' method='POST')
+                                .form-group
+                                    label Email
+                                    input#login-id.form-control(type='text' name='username')
+                                .form-group
+                                    label Password
+                                    input#login-pass.form-control(type='password' name='password')
+                                button.btn.btn-primary(type='submit' name='submit') Login
+                            br
+                            a(href='forgot-password.html') Forgot Password?
+
+
+#create_modal.modal.fade(data-open-onload='false' tabindex='-1' role='dialog')
+    .modal-dialog.modal-lg(role='document')
+        .modal-content
+            button.close(type='button' data-dismiss='modal' aria-label='Close')
+                span(aria-hidden='true') &times;
+            .modal-body
+                .container-fluid
+                    .row
+                        .col-lg-6.p-40.bg-white
+                            h4.heading Create a new rule
+                            p Create a new rule for better experience.
+                            form(id='create-rule' action='/restrictions' method='POST')
+                                .form-group
+                                    label Rule
+                                    input#input_rule.form-control(type='text' name='restriction' v-model="rule")
+                                button.btn.btn-primary(type='submit' name='submit') Submit

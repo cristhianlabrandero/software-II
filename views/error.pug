@@ -1,0 +1,17 @@
+extends templates/default
+
+block content
+    div.container
+        div.row.flex-row.justify-content-center
+            .col-lg-12
+                .card
+                    .card-body
+                        h1= message
+                        h2= error.status
+                        pre #{error.stack}
+
+    include templates/footer
+        // Login Modal
+    include templates/login_modal
+    include templates/scripts_section
+

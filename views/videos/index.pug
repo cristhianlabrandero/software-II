@@ -1,0 +1,38 @@
+extends ../templates/default
+block content
+    .container
+        .col-lg-12.col-md-12
+            h3='Content analysis'
+            .card
+                .card-body
+                    form#form_video(role="form" , method="post", enctype="multipart/form-data" , action="/upload")
+                        span   Upload the file to analyze
+                        .form-group
+                            label.custom-file
+                                input#video.custom-file-input(type="file" name="video")
+                                span.custom-file-control Choose one file
+
+
+                        button.btn.btn-primary(type='submit') Submit
+
+block scripts
+    script.
+        var status_msj = !{JSON.stringify(status)};
+        if (status_msj.length > 0) {
+            var info_msj = !{JSON.stringify(info)};
+            var type = 'success'
+            if (status_msj[0] == 'failed') {
+                type = 'warning'
+            }
+            swal({
+                title: '',
+                type: type,
+                html: info_msj[0],
+                showCloseButton: true,
+                showCancelButton: true,
+                focusConfirm: false,
+                confirmButtonText:
+                    '<i class="fa fa-thumbs-up"></i> Great!',
+                confirmButtonAriaLabel: 'Thumbs up, great!'
+            })
+        }
